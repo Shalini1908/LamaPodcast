@@ -9,7 +9,7 @@ const app = express();
 // Enabling Cross-Origin Resource Sharing (CORS)
 app.use(
   cors({
-    origin: "https://lamaproject.vercel.app/",
+    origin: "https://lamaproject.vercel.app",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
@@ -26,8 +26,11 @@ app.get("/", (req, res) => {
 app.use("/project", projectRoutes);
 app.use("/projectfile", projectFileRoutes);
 
+// Handling OPTIONS requests for CORS preflight
+app.options('*', cors());
+
 // Starting Server
-app.listen(process.env.PORT, async () => {
+app.listen(process.env.PORT || 3000, async () => {
   try {
     await connection;
     console.log("Connected to the database");
