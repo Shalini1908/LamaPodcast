@@ -1,10 +1,12 @@
-import { ProjectsModel } from '../models/projects.js';
+import { ProjectsModel } from "../models/projects.js";
 
 // Get all Projects
 export const getAllProjects = async (req, res) => {
   try {
-    const project = await ProjectsModel.find();
-    res.send(project);
+    const project = await ProjectsModel.find({
+      user_email: req.query.userEmail,
+    });
+    res.send({ data: project });
   } catch (err) {
     console.log(err);
   }
@@ -15,9 +17,10 @@ export const createProject = async (req, res) => {
   try {
     const project = new ProjectsModel(req.body);
     await project.save();
-    res.send({ msg: 'Project has been added' });
+
+    res.status(200).send({ status: 200, msg: "Project has been added" });
   } catch (err) {
-    res.send({ msg: 'Project is not added' });
+    res.send({ msg: "Project is not added" });
   }
 };
 
@@ -25,10 +28,11 @@ export const createProject = async (req, res) => {
 export const getProjectById = async (req, res) => {
   try {
     const project = await ProjectsModel.findById(req.params.id);
+
     if (project) {
       res.send(project);
     } else {
-      res.send('Project not found');
+      res.send("Project not found");
     }
   } catch (error) {
     console.log(error);
@@ -39,7 +43,7 @@ export const getProjectById = async (req, res) => {
 export const updateProject = async (req, res) => {
   try {
     await ProjectsModel.findByIdAndUpdate(req.params.id, req.body);
-    res.send('Project Updated Successfully');
+    res.send("Project Updated Successfully");
   } catch (error) {
     console.log(error);
   }
@@ -49,7 +53,7 @@ export const updateProject = async (req, res) => {
 export const deleteProject = async (req, res) => {
   try {
     await ProjectsModel.findByIdAndDelete(req.params.id);
-    res.send('Project Deleted Successfully');
+    res.send("Project Deleted Successfully");
   } catch (error) {
     console.log(error);
   }

@@ -1,12 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const projectsSchema = new mongoose.Schema({
-  image: String,
-  name: String,
-  numberOfEpisodes : Number
+const projectsSchema = new mongoose.Schema(
+  {
+    project_title: String,
+    user_email: String,
+  },
+  {
+    timestamps: true,
+  }
+);
 
-});
-
-const ProjectsModel = mongoose.model('project', projectsSchema);
+const ProjectsModel = mongoose.model("project", projectsSchema);
 
 export { ProjectsModel };
