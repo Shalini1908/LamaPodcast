@@ -9,7 +9,7 @@ const app = express();
 // Enabling Cross-Origin Resource Sharing (CORS)
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://lamaproject.vercel.app/",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
